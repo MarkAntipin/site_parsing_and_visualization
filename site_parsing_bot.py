@@ -9,7 +9,8 @@ import telebot
 from telebot import apihelper
 from site_parsing import save_links_to_file, make_dataframe
 from making_dataframes import save_all_to_bigquery, get_site_data, read_data_csv
-from visualization import pivot_table
+from visualization import pivot_table, heat_map
+from azure_connection import download_to_azure
 
 
 def get_token(file_path):
@@ -38,6 +39,9 @@ def get_text_messages(message):
         site_data = read_data_csv("site_data.csv")
         save_all_to_bigquery(site_data)
         bot.send_message(message.from_user.id, "теперь все на BigQuery")
+    elif message.text == "azure":
+        download_to_azure("site_data.csv")
+        bot.send_message(message.from_user.id, "теперь все в Azure")
     elif message.text == "print":
         site_data = get_site_data()
         bot.send_message(message.from_user.id, site_data['brand'])
@@ -46,9 +50,14 @@ def get_text_messages(message):
         photo = open('images/pivot.png', 'rb')
         bot.send_photo(message.chat.id, photo)
         bot.send_message(message.from_user.id, "должна быть диаграмма")
+    elif message.text == "heat":
+        heat_map()
+        photo = open('images/heat_map', 'rb')
+        bot.send_photo(message.chat.id, photo)
+        bot.send_message(message.from_user.id, "должна быть диаграмма")
     elif message.text == "/help":
         bot.send_message(message.from_user.id, "доступные команды: скачать_товары, "
-                                               "bigquery, print, pivot, привет")
+                                               "bigquery, azure, print, pivot, heat, привет")
     else:
         bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help.")
 

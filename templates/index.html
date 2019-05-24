@@ -1,0 +1,18 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+</head> 
+<body> 
+<p>Вывод инвормации с сайта hatewait</p> 
+<form id='form 1' method="POST"> 
+<select name= choices method="GET" action="/"> 
+{% for choice in choices %} 
+<option value= "{{choice}}" SELECTED>{{choice}}</option>" 
+{% endfor %} 
+</select> 
+<input type="submit" name="submit_button" value="Построить график"> 
+</form> 
+<!— <input type="submit" name="submit_button" value="Обновить базу"> —> 
+<a href='/update'>Обновить</a> 
+</body> 
+</html>
