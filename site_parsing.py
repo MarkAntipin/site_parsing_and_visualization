@@ -33,7 +33,6 @@ def parse_product(main_link, product_links):
             if re.search(r'javascript',str(link)) is None:
                 product_links.add(link)
 
-
 def save_links_to_file(main_link, file_path):
     '''
     парсинг по всем каталогам сайта

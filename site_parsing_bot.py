@@ -46,12 +46,12 @@ def get_text_messages(message):
         site_data = get_site_data()
         bot.send_message(message.from_user.id, site_data['brand'])
     elif message.text == "pivot":
-        pivot_table()
+        pivot_table("site_data.csv")
         photo = open('images/pivot.png', 'rb')
         bot.send_photo(message.chat.id, photo)
         bot.send_message(message.from_user.id, "должна быть диаграмма")
     elif message.text == "heat":
-        heat_map()
+        heat_map("site_data.csv")
         photo = open('images/heat_map', 'rb')
         bot.send_photo(message.chat.id, photo)
         bot.send_message(message.from_user.id, "должна быть диаграмма")
